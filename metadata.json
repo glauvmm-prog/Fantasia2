@@ -1,0 +1,6 @@
+{
+  "name": "Fantasias Anos 80 e 90",
+  "description": "Sistema de gestão de vendas, aluguel e cadastro de fantasias retrô dos anos 80 e 90 com integração opcional direta ao Supabase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
