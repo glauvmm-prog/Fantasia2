@@ -212,28 +212,7 @@ export default function App() {
             </button>
           </nav>
 
-          {/* Database active indicator indicator */}
-          <div className="flex items-center gap-2.5">
-            {isSupabaseActive ? (
-              <div 
-                onClick={() => setActiveTab('supabase')}
-                className="bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emerald-500/20 transition-all font-mono text-[10px]"
-                title="Conectado ao Supabase Cloud remoto!"
-              >
-                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                <span className="text-emerald-300 font-extrabold uppercase">SUPABASE CLOUD</span>
-              </div>
-            ) : (
-              <div 
-                onClick={() => setActiveTab('supabase')}
-                className="bg-zinc-800 border border-zinc-700 px-3 py-1.5 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-zinc-700 transition-all font-mono text-[10px]"
-                title="Salvo somente no navegador (Offline)"
-              >
-                <div className="w-2 h-2 rounded-full bg-zinc-500"></div>
-                <span className="text-zinc-400 font-bold uppercase">BANCO LOCAL (VITE)</span>
-              </div>
-            )}
-          </div>
+
 
         </div>
       </header>
