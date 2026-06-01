@@ -154,25 +154,44 @@ const DEFAULT_TRANSACTIONS: Transaction[] = [
   }
 ];
 
-// Load Supabase Client if Configured
-function getSupabase(): any | null {
-  const envUrl = (import.meta as any).env?.VITE_SUPABASE_URL;
-  const envKey = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY;
-  if (envUrl && envUrl.trim() !== "" && envKey && envKey.trim() !== "") {
-    return createClient(envUrl, envKey);
-  }
+// Cache variables for Supabase Client singleton
+let cachedClient: any | null = null;
+let cachedUrl: string | null = null;
+let cachedKey: string | null = null;
 
-  const configStr = localStorage.getItem('retro_supabase_config');
-  if (configStr) {
-    try {
-      const config: SupabaseConfig = JSON.parse(configStr);
-      if (config.is_connected && config.url && config.anon_key) {
-        return createClient(config.url, config.anon_key);
+// Load Supabase Client if Configured (using cached singleton instance)
+function getSupabase(): any | null {
+  let url = (import.meta as any).env?.VITE_SUPABASE_URL || '';
+  let key = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || '';
+
+  if (!url || url.trim() === "" || !key || key.trim() === "") {
+    const configStr = localStorage.getItem('retro_supabase_config');
+    if (configStr) {
+      try {
+        const config: SupabaseConfig = JSON.parse(configStr);
+        if (config.is_connected && config.url && config.anon_key) {
+          url = config.url;
+          key = config.anon_key;
+        }
+      } catch (e) {
+        console.error("Erro ao parsear configuração do Supabase:", e);
       }
-    } catch (e) {
-      console.error("Erro ao parsear configuração do Supabase:", e);
     }
   }
+
+  if (url && url.trim() !== "" && key && key.trim() !== "") {
+    if (cachedClient && cachedUrl === url && cachedKey === key) {
+      return cachedClient;
+    }
+    cachedUrl = url;
+    cachedKey = key;
+    cachedClient = createClient(url, key);
+    return cachedClient;
+  }
+
+  cachedClient = null;
+  cachedUrl = null;
+  cachedKey = null;
   return null;
 }
 
