@@ -14,13 +14,11 @@ import {
 import Dashboard from './components/Dashboard';
 import CostumeList from './components/CostumeList';
 import TransactionList from './components/TransactionList';
-import SupabaseGuide from './components/SupabaseGuide';
 
 import { 
   Tv, 
   Film, 
   Disc, 
-  Database, 
   BarChart3, 
   Grid3X3, 
   ArrowRightLeft, 
@@ -201,15 +199,6 @@ export default function App() {
             >
               <ArrowRightLeft className="w-4 h-4" /> Caixa / Op
             </button>
-
-            <button
-              onClick={() => setActiveTab('supabase')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer ${
-                activeTab === 'supabase' ? 'bg-zinc-900 text-emerald-400 border border-zinc-805' : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <Database className="w-4 h-4/5 w-4" /> Database
-            </button>
           </nav>
 
 
@@ -271,12 +260,6 @@ export default function App() {
                 preselectedCostumeId={preselectedCostumeId}
                 preselectedType={preselectedType}
                 onClearPreselected={handleClearPreselected}
-              />
-            )}
-
-            {activeTab === 'supabase' && (
-              <SupabaseGuide 
-                onConfigChanged={loadDatabase}
               />
             )}
           </div>
